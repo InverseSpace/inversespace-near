@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+// Taken from austintgriffith/scaffold-eth
 // helper hook to call a function regularly in time intervals
 
 export default function usePoller(fn, delay, extraWatch) {
@@ -14,7 +15,7 @@ export default function usePoller(fn, delay, extraWatch) {
     function tick() {
       savedCallback.current();
     }
-    if (delay !== null) {
+    if (delay) {
       const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }

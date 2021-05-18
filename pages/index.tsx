@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import {  useContext } from "react";
 // import "./App.css";
 // import Header from "../components/Header"
 import styled from 'styled-components'
 import { Wallet, Chain, Network } from "mintbase";
+import { WalletContext } from "../hooks/WalletProvider";
 
 const Header = styled.div`
   background: #333;
@@ -43,43 +44,8 @@ const Details = styled.p`
 `;
 
 
-export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [details, setDetails] =
-    useState<{
-      accountId: string;
-      balance: string;
-      allowance: string;
-      contractName: string;
-    }>();
-  const [wallet, setWallet] = useState<Wallet | null>(null);
-
-  const initWallet = async () => {
-    const { data: walletData, error } = await new Wallet().init({
-      networkName: Network.testnet,
-      chain: Chain.near,
-      apiKey: "1deeae7f-a3cb-4479-9b18-f657e75ccc82",
-    });
-
-    if (error) {
-      console.error(error);
-    }
-
-    const { wallet, isConnected } = walletData;
-
-    if (isConnected) {
-      try {
-        const { data: details } = await wallet.details();
-
-        setDetails(details);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    setWallet(wallet);
-    setIsLoggedIn(isConnected);
-  };
+export default function Home(props) {
+  const { wallet, isConnected, details } = useContext(WalletContext);
 
   const handleConnect = async (shouldRequest: boolean) => {
     if (!wallet) return;
@@ -92,24 +58,21 @@ export default function Home() {
     window.location.reload();
   };
 
-  useEffect(() => {
-    initWallet();
-  }, []);
   return (
     <Container>
       <Header>
         <HeaderRight>
-          {isLoggedIn && details && (
+          {isConnected && details && (
               <>
               <Details>Account: {details?.accountId}</Details>
               <Details>Balance: {details?.balance} N</Details>
               </>
           )}
           <ButtonsContainer>
-            {!isLoggedIn && (
+            {!isConnected && (
               <Button onClick={() => handleConnect(true)}>Connect</Button>
             )}
-            {isLoggedIn && (
+            {isConnected && (
               <Button onClick={() => handleDisconnect()}>Disconnect</Button>
             )}
           </ButtonsContainer>
