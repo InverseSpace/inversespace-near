@@ -4,36 +4,29 @@ import { useEffect, useState } from "react";
 import styled from 'styled-components'
 import { Wallet, Chain, Network } from "mintbase";
 
+const Header = styled.div`
+  background: #333;
+  color: #ddd;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr [l] 8fr [r] 8fr 1fr;
+`
+
+const HeaderRight = styled.div`
+    grid-column-start: r;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const Container = styled.div`
   text-align: center;
   max-width: 100vw;
 `;
 
-const Header = styled.div`
-  background-color: #282c34;
-  min-height: 40vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-`;
-
-const Link = styled.a`
-  color: white;
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: inline-block;
 `;
 
 const Button = styled.button`
@@ -41,12 +34,12 @@ const Button = styled.button`
   margin: 10px;
 `;
 
-const DetailsContainer = styled.div`
-  max-width: 300px;
-`;
-
 const Details = styled.p`
   font-size: 18px;
+    display: inline-block;
+    background: #070707;
+    padding: 0.3em;
+    margin: 2px;
 `;
 
 
@@ -105,29 +98,22 @@ export default function Home() {
   return (
     <Container>
       <Header>
-        <LogoContainer>
-          <Link href="https://github.com/mintbase/mintbase-js">
-            Mintbase.js
-          </Link>
-        </LogoContainer>
-
-        <p>{isLoggedIn ? "You are connected!" : "You are disconnected!"}</p>
-
-        {isLoggedIn && details && (
-          <DetailsContainer>
-            <Details>Account: {details?.accountId}</Details>
-            <Details>Balance: {details?.balance} N</Details>
-          </DetailsContainer>
-        )}
-
-        <ButtonsContainer>
-          {!isLoggedIn && (
-            <Button onClick={() => handleConnect(true)}>Connect</Button>
+        <HeaderRight>
+          {isLoggedIn && details && (
+              <>
+              <Details>Account: {details?.accountId}</Details>
+              <Details>Balance: {details?.balance} N</Details>
+              </>
           )}
-          {isLoggedIn && (
-            <Button onClick={() => handleDisconnect()}>Disconnect</Button>
-          )}
-        </ButtonsContainer>
+          <ButtonsContainer>
+            {!isLoggedIn && (
+              <Button onClick={() => handleConnect(true)}>Connect</Button>
+            )}
+            {isLoggedIn && (
+              <Button onClick={() => handleDisconnect()}>Disconnect</Button>
+            )}
+          </ButtonsContainer>
+        </HeaderRight>
       </Header>
     </Container>
   )
