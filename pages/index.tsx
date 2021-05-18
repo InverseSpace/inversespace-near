@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import MintbaseLogo from "./MintbaseLogo";
-import "./App.css";
+// import "./App.css";
+// import Header from "../components/Header"
+import styled from 'styled-components'
 import { Wallet, Chain, Network } from "mintbase";
-import styled from "styled-components";
 
 const Container = styled.div`
   text-align: center;
@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   background-color: #282c34;
-  min-height: 30vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,7 +49,8 @@ const Details = styled.p`
   font-size: 18px;
 `;
 
-function App() {
+
+export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [details, setDetails] =
     useState<{
@@ -101,12 +102,10 @@ function App() {
   useEffect(() => {
     initWallet();
   }, []);
-
   return (
     <Container>
       <Header>
         <LogoContainer>
-          <MintbaseLogo />
           <Link href="https://github.com/mintbase/mintbase-js">
             Mintbase.js
           </Link>
@@ -131,7 +130,6 @@ function App() {
         </ButtonsContainer>
       </Header>
     </Container>
-  );
-}
+  )
 
-export default App;
+}
