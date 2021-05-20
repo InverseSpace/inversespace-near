@@ -1,5 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { WalletProvider } from '../hooks/WalletProvider';
+import { WalletProvider } from '../hooks/WalletProvider'
+import {MintbaseCollectionProvider} from '../hooks/CollectionProvider'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -37,5 +38,6 @@ const App = ({ Component, pageProps }) => {
 
 export default withProviders(
   [ThemeProvider, { theme }],
-  [WalletProvider, { apiKey: "77ab9ca8-ed8c-4a62-8202-6c5075c9ef1e" }]
+  [WalletProvider, { apiKey: "77ab9ca8-ed8c-4a62-8202-6c5075c9ef1e" }],
+  [MintbaseCollectionProvider, { storeName: "inversespace" }]
 )(App)

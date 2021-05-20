@@ -1,6 +1,6 @@
 import { Network, Wallet, Chain } from 'mintbase';
 import React, { useState } from 'react';
-import { useEffect, useContext, createContext, FC, ReactNode } from 'react';
+import { useEffect, createContext, ReactNode } from 'react';
 
 interface IWalletProvider {
     network?: string;

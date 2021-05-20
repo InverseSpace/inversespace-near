@@ -4,6 +4,7 @@ import {  useContext } from "react";
 import styled from 'styled-components'
 import { Wallet, Chain, Network } from "mintbase";
 import { WalletContext } from "../hooks/WalletProvider";
+import BasicGallery from "../components/BasicGallery";
 
 const Header = styled.div`
   background: #333;
@@ -78,6 +79,7 @@ export default function Home(props) {
           </ButtonsContainer>
         </HeaderRight>
       </Header>
+      <BasicGallery />
     </Container>
   )
 
